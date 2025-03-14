@@ -113,7 +113,7 @@ def main():
             processes = []
             # Start a process for each client to perform local training
             for client in clients:
-                p = Process(target=client.train_local_model, args=(global_state, local_epochs, learning_rate, batch_size, device, return_dict))
+                p = Process(target=client.train_local_model, args=(global_state, local_epochs, learning_rate, batch_size, torch.device('cpu'), return_dict))
                 processes.append(p)
                 p.start()
             for p in processes:
