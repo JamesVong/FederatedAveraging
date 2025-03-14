@@ -1,4 +1,6 @@
 # main.py
+
+
 import os
 import torch
 import torchvision
@@ -6,10 +8,15 @@ import torchvision.transforms as transforms
 import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader, Subset, random_split
-from multiprocessing import Process, Manager
+from multiprocessing import Process, Manager, set_start_method
 from Client import Client
 from Server import Server
 from Baseline import TwoLayerNet  # Assumes TwoLayerNet is defined in Baseline.py
+
+try:
+    set_start_method('spawn')
+except RuntimeError:
+    pass
 
 def partition_dataset(dataset, num_clients=5, uneven=True):
     """
