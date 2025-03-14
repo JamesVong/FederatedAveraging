@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -102,6 +103,9 @@ def main():
     test_loader  = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
     
     final_test_accuracies = []
+    
+    # Ensure the folder for saving plots exists
+    os.makedirs("Baselines", exist_ok=True)
 
     # Repeat the training process multiple times
     for repeat in range(num_repeats):
@@ -129,10 +133,15 @@ def main():
         plt.plot(range(1, num_epochs+1), test_acc_history, marker='o', label="Test Accuracy")
         plt.xlabel("Epoch")
         plt.ylabel("Accuracy")
-        plt.title(f"Baseline Accuracy Curves (Repeat {repeat+1}) on {dataset_name}")
+        plt.title(f"{dataset_name} Baseline Accuracy (Repeat {repeat+1})")
         plt.legend()
         plt.grid(True)
-        plt.show()
+        
+        # Save the plot to the Baselines folder
+        plot_filename = os.path.join("Baselines", f"{dataset_name}_Repeat{repeat+1}.png")
+        plt.savefig(plot_filename)
+        plt.close()
+        print(f"Saved plot: {plot_filename}")
 
     # Report final accuracy statistics
     mean_final_acc = np.mean(final_test_accuracies)
