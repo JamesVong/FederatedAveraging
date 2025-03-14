@@ -54,4 +54,7 @@ class Client:
         # Record this round's local training accuracy
         self.train_acc_history.append(round_acc)
         # Place in return_dict: (state_dict, number of samples, training accuracy)
-        return_dict[self.name] = (local_model.state_dict(), len(self.dataset), round_acc)
+        # After local training, convert model state to CPU
+        updated_state = {k: v.cpu() for k, v in local_model.state_dict().items()}
+        return_dict[self.name] = (updated_state, len(self.dataset), round_acc)
+
