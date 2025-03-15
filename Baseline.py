@@ -74,7 +74,7 @@ def evaluate(model, dataloader, device):
 
 def main():
     # Choose dataset: "FashionMNIST" or "CIFAR10"
-    dataset_name = "FashionMNIST"
+    dataset_name = "CIFAR10"
     
     # Hyperparameters
     num_repeats = 5
