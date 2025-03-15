@@ -45,7 +45,7 @@ def partition_dataset(dataset, num_clients=5, uneven=True):
 
 def main():
     # Settings
-    dataset_name = "CIFAR10"
+    dataset_name = "FashionMNIST"
     num_clients = 5
     num_rounds = 10       # Communication rounds per repeat
     local_epochs = 1      # Local training epochs per round
